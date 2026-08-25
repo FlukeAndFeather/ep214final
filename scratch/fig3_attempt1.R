@@ -4,10 +4,90 @@ library(tidyverse)
 bq1 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
 bq2 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca2-Bisley.csv")
 bq3 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca3-Bisley.csv")
-prm <- read_csv("data/knb-lter-luq.20.4923064/RioMameyesPuenteRoto.csv")
+mpr <- read_csv("data/knb-lter-luq.20.4923064/RioMameyesPuenteRoto.csv")
+
+# Day 2 attempt ----------------------------------------------------------
+
+# Remove unecessary columns from bq1
+bq1_filtered <- bq1 |>
+  select("Sample_ID", "Sample_Date", "NO3-N", "K", "Mg", "Ca", "NH4-N")
+glimpse(bq1_filtered)
+
+# Create tibble with 9wk smoothed windows
+bq1_smoothed <- tibble(
+  window_start = seq(ymd("1988-01-01"), ymd("1995-01-01"), by = "9 weeks"),
+  Sample_ID = "BQ1",
+  "NO3-N" = NA,
+  K = NA,
+  Mg = NA,
+  Ca = NA,
+  "NH4-N" = NA
+)
+glimpse(bq1_smoothed)
+
+# Add 9 wk moving average to the bq1_smoothed data frame
+for (i in 1:nrow(bq1_smoothed)) {
+  w1 <- bq1_smoothed$window_start[i]
+  w2 <- bq1_smoothed$window_start[i] + weeks(9)
+  # potassium
+  potassium <- bq1_filtered$K[
+    bq1_filtered$Sample_Date >= w1 & bq1_filtered$Sample_Date < w2
+  ]
+  mean_potassium <- mean(potassium, na.rm = TRUE)
+  bq1_smoothed$K[i] <- mean_potassium
+  # nitrate-N
+  nitrate <- bq1_filtered$"NO3-N"[
+    bq1_filtered$Sample_Date >= w1 & bq1_filtered$Sample_Date < w2
+  ]
+  mean_nitrate <- mean(nitrate, na.rm = TRUE)
+  bq1_smoothed$"NO3-N"[i] <- mean_nitrate
+  # calcium
+  calcium <- bq1_filtered$Ca[
+    bq1_filtered$Sample_Date >= w1 & bq1_filtered$Sample_Date < w2
+  ]
+  mean_calcium <- mean(calcium, na.rm = TRUE)
+  bq1_smoothed$Ca[i] <- mean_calcium
+  # ammonium-N
+  ammonium <- bq1_filtered$"NH4-N"[
+    bq1_filtered$Sample_Date >= w1 & bq1_filtered$Sample_Date < w2
+  ]
+  mean_ammonium <- mean(ammonium, na.rm = TRUE)
+  bq1_smoothed$"NH4-N"[i] <- mean_ammonium
+  # magnesium
+  magnesium <- bq1_filtered$Mg[
+    bq1_filtered$Sample_Date >= w1 & bq1_filtered$Sample_Date < w2
+  ]
+  mean_magnesium <- mean(magnesium, na.rm = TRUE)
+  bq1_smoothed$Mg[i] <- mean_magnesium
+}
+view(bq1_smoothed)
+
+# Pivot longer
+bq1_long <- bq1_smoothed |>
+  pivot_longer(
+    cols = c("NO3-N", "K", "Mg", "Ca", "NH4-N"),
+    names_to = "nutrients",
+    values_to = "concentration"
+  )
+glimpse(bq1_long)
+
+# bq1 figure
+ggplot(
+  data = bq1_long,
+  mapping = aes(x = window_start, y = concentration)
+) +
+  geom_line() +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  facet_wrap(~nutrients, scales = "free")
+
+# Day 1 attempt ----------------------------------------------------------
 
 # Combine data frames
-fig3_raw <- bind_rows(bq1, bq2, bq3, prm)
+fig3_raw <- bind_rows(bq1, bq2, bq3, mpr)
 count(fig3_raw, Sample_ID)
 
 # Remove unecessary columns
@@ -16,7 +96,7 @@ fig3_filtered <- fig3_raw |>
   select("Sample_ID", "Sample_Date", "NO3-N", "K", "Mg", "Ca", "NH4-N")
 glimpse(fig3_filtered)
 
-# Create tibble with 9wk smoothed windows. Rename nutrients with - to _
+# Create tibble with 9wk smoothed windows.
 fig3_smoothed <- tibble(
   window_start = seq(
     fig3_filtered$Sample_Date[1],
@@ -92,5 +172,3 @@ ggplot(
     panel.grid.minor = element_blank()
   ) +
   facet_wrap(~nutrients, scales = "free")
-
-# intentional merge conflict on my computer
