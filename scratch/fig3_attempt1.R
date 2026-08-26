@@ -1,10 +1,17 @@
 library(tidyverse)
+source("R/moving-average.R")
 
 # Read in the data
 bq1 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
 bq2 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca2-Bisley.csv")
 bq3 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca3-Bisley.csv")
 mpr <- read_csv("data/knb-lter-luq.20.4923064/RioMameyesPuenteRoto.csv")
+
+
+# Day 3 attempt ----------------------------------------------------------
+
+result <- moving_average(site = bq1) # Creates data frame called results with moving averages for bq1
+
 
 # Day 2 attempt ----------------------------------------------------------
 
