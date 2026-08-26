@@ -1,6 +1,7 @@
 moving_average <- function(site) {
   result <- tibble(
     window_start = seq(ymd("1988-01-01"), ymd("1995-01-01"), by = "9 weeks"),
+    Sample_ID = site$Sample_ID[1],
     K = NA,
     Mg = NA,
     Ca = NA,
