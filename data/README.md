@@ -2,7 +2,7 @@
 
 **knb-lter-luq.20.4923064** contains the raw data downloaded from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
 
-# Target files for analysis
+## Target files for analysis
 
 The csv files used to recreate Figure 3 in **figure3.R** include:
 
@@ -16,7 +16,7 @@ The csv files used to recreate Figure 3 in **figure3.R** include:
 Each of the target csv files have the same structure. The columns needed to recreate figure 3 are:
 
 1. **Sample_ID**   Site name (i.e., Q1, Q2, Q3, MPR)
-2. **Sample_Date**   1986-05-20 to 2020-12-29
+2. **Sample_Date**   Sampling began on 1986-05-20 and ended on 2020-12-29
 3. **NO3-N**   Concentration of nitrate in ug/L
 4. **K**   Concentration of potassium in mg/L
 5. **Mg**   Concentration of magnesium in mg/L

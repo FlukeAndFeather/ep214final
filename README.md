@@ -9,7 +9,7 @@ Emalia Partlow (EDS 214)
 
 ## Data
 
-* Contains **knb-lter-luq.20.4923064** data folder from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
+* Contains **knb-lter-luq.20.4923064** raw data folder from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
 * The csv files used to recreate Figure 3 in **figure3.R** include QuebradaCuenca1-Bisley.csv, QuebradaCuenca2-Bisley.csv, QuebradaCuenca3-Bisley.csv, RioMameyesPuenteRoto.csv
 
 
