@@ -1,7 +1,7 @@
 # Hurricane effects on stream chemistry: Figure 3
 Emalia Partlow (EDS 214)
 
-**Repository purpose:** Contains the raw data and code used to replicate Figure 3 from [Schaefer et al. (2000)](https://doi.org/10.1017/s0266467400001358)
+**Repository purpose:** Contains the raw data, cleaned data, and scripts used to replicate Figure 3 from [Schaefer et al. (2000)](https://doi.org/10.1017/s0266467400001358)
 
 **Figure 3 overview:** Concentrations of 5 nutrients from 4 stream sites in Puerto Rico, before and after Hurricane Hugo in 1989
 
@@ -9,8 +9,8 @@ Emalia Partlow (EDS 214)
 
 ## Data
 
-* Contains **knb-lter-luq.20.4923064** raw data folder from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
-* The csv files used to recreate Figure 3 in **figure3.R** include QuebradaCuenca1-Bisley.csv, QuebradaCuenca2-Bisley.csv, QuebradaCuenca3-Bisley.csv, RioMameyesPuenteRoto.csv
+* /data contains the raw data folder, **knb-lter-luq.20.4923064**, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
+* **1_clean_data.R** includes the code for cleaning the raw data, creating **fig3_long.csv** in /output, which is ready for analysis
 
 
 ## References
