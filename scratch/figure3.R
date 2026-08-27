@@ -38,10 +38,13 @@ ggplot(
     legend.title = element_blank(),
     legend.position = "inside",
     legend.justification = c("right", "top"),
+    legend.key.height = unit(.4, "cm"),
+    legend.key.width = unit(.5, "cm"),
     strip.placement = "outside"
   ) +
-  scale_x_date(name = "Years", sec.axis = dup_axis()) +
-  facet_grid(vars(nutrients), scales = "free_y", switch = "y")
+  labs(x = "Years", y = "") +
+  scale_x_date(sec.axis = dup_axis()) +
+  facet_grid(nutrients ~ ., scales = "free_y", switch = "y")
 
 # Previous attempts ------------------------------------------------------
 
