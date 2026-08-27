@@ -13,7 +13,8 @@ moving_average <- function(site) {
     w1 <- result$window_start[i]
     w2 <- result$window_start[i] + weeks(9)
 
-    in_window <- site$Sample_Date >= w1 & site$Sample_Date < w2 # Which samples are inside the window
+    # Define which samples are inside the window
+    in_window <- site$Sample_Date >= w1 & site$Sample_Date < w2
 
     # Pull out the ion concentrations that fall inside the window
     k_window <- site$K[in_window]

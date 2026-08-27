@@ -1,8 +1,8 @@
 # Data folder overview
 
-* /data contains the raw data folder, **knb-lter-luq.20.4923064**, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
+* **data/** contains the raw data folder, **knb-lter-luq.20.4923064**, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
 
-The csv files used to recreate Figure 3 from **/data/knb-lter-luq.20.4923064** include:
+The csv files used to recreate Figure 3 from **data/knb-lter-luq.20.4923064** include:
 
 1. QuebradaCuenca1-Bisley.csv
 2. QuebradaCuenca2-Bisley.csv
@@ -19,4 +19,4 @@ Each of the target csv files have the same structure. The columns needed to recr
 6. **Ca**   Concentration of calcium in mg/L
 7. **NH4-N**   Concentration of ammonium in ug/L
 
-* **1_clean_data.R** includes the code for cleaning the raw data, creating **fig3_long.csv** in /output, which is ready for analysis
+* **1_clean_data.R** includes the code for cleaning the raw data, creating **fig3_long.csv** in **output/**, which is ready for analysis

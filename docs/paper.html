@@ -90,15 +90,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="background" class="level1">
 <h1>Background</h1>
-<p><strong>Repository purpose:</strong> Contains the raw data, cleaned data, and scripts used to replicate Figure 3 from <a href="https://doi.org/10.1017/s0266467400001358">Schaefer et al.&nbsp;(2000)</a></p>
+<p><strong>Repository purpose:</strong> Contains the raw data, cleaned data, functions, and scripts used to replicate Figure 3 from <a href="https://doi.org/10.1017/s0266467400001358">Schaefer et al.&nbsp;(2000)</a></p>
 <p><strong>Figure 3 overview:</strong> Concentrations of 5 nutrients from 4 stream sites in Puerto Rico, before and after Hurricane Hugo in 1989</p>
 <p><img src="Schaefer_etal_2020_fig3.png" class="img-fluid"></p>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
 <ul>
-<li><p>/data contains the raw data folder, <strong>knb-lter-luq.20.4923064</strong>, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)</p></li>
-<li><p>The csv files used to recreate Figure 3 from <strong>/data/knb-lter-luq.20.4923064</strong> include:</p></li>
+<li><p><strong>data/</strong> contains the raw data folder, <strong>knb-lter-luq.20.4923064</strong>, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)</p></li>
+<li><p>The csv files used to recreate Figure 3 from <strong>data/knb-lter-luq.20.4923064</strong> include:</p></li>
 </ul>
 <ol type="1">
 <li>QuebradaCuenca1-Bisley.csv</li>
@@ -119,13 +119,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>NH4-N</strong> Concentration of ammonium in ug/L</li>
 </ol>
 <ul>
-<li><strong>1_clean_data.R</strong> includes the code for cleaning the raw data, creating <strong>fig3_long.csv</strong> in /output, which is ready for analysis</li>
+<li><strong>1_clean_data.R</strong> includes the code for cleaning the raw data, creating <strong>fig3_long.csv</strong> in <strong>output/</strong>, which is ready for analysis</li>
 </ul>
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
-<p><strong>Currently working on methods section, so it is not ready yet!</strong> 1. Raw data 2. Raw data (<strong>/data/knb-lter-luq.20.4923064</strong>) was cleaned (<strong>1_clean_data.R</strong>) by calculating the 9 week moving average for each sitethe</p>
-<p>The cleaned data set fig3_long.csv moving average of</p>
+<ol type="1">
+<li>Target raw data files from <strong>data/knb-lter-luq.20.4923064</strong> read into <strong>1_clean_data.R</strong> for cleaning</li>
+<li>Sourced the function calculating the 9 week moving average of nutrient concentrations from <strong>R/moving-average.R</strong> to populate the result tables for each site</li>
+<li>Combined the the 4 site’s data frames containing the moving average results</li>
+<li>Pivoted longer and saved as <strong>output/fig3_long.csv</strong></li>
+<li>Figure 3 developed with ggplot2 in <strong>figure3_final.R</strong> and below in <strong>Results</strong></li>
+</ol>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
@@ -155,6 +160,8 @@ date (1): window_start
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
+</div>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> fig3_long,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> window_start, <span class="at">y =</span> concentration, <span class="at">linetype =</span> Sample_ID)</span>
@@ -182,7 +189,7 @@ date (1): window_start
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="paper_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="paper_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
