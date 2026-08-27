@@ -1,6 +1,6 @@
 # Background
 
-**Repository purpose:** Contains the raw data and code used to replicate Figure 3 from [Schaefer et al. (2000)](https://doi.org/10.1017/s0266467400001358)
+**Repository purpose:** Contains the raw data, cleaned data, and scripts used to replicate Figure 3 from [Schaefer et al. (2000)](https://doi.org/10.1017/s0266467400001358)
 
 **Figure 3 overview:** Concentrations of 5 nutrients from 4 stream sites in Puerto Rico, before and after Hurricane Hugo in 1989
 
@@ -8,20 +8,16 @@
 
 # Data
 
-**knb-lter-luq.20.4923064** contains the raw data downloaded from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
+* /data contains the raw data folder, **knb-lter-luq.20.4923064**, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
 
-## Target files for analysis
-
-The csv files used to recreate Figure 3 in **figure3.R** include:
+* The csv files used to recreate Figure 3 from **/data/knb-lter-luq.20.4923064** include:
 
 1. QuebradaCuenca1-Bisley.csv
 2. QuebradaCuenca2-Bisley.csv
 3. QuebradaCuenca3-Bisley.csv
 4. RioMameyesPuenteRoto.csv
 
-## Target columns for analysis
-
-Each of the target csv files have the same structure. The columns needed to recreate figure 3 are:
+* Each of the target csv files have the same structure. The columns needed to recreate figure 3 are:
 
 1. **Sample_ID**   Site name (i.e., Q1, Q2, Q3, MPR)
 2. **Sample_Date**   Sampling began on 1986-05-20 and ended on 2020-12-29
@@ -31,36 +27,26 @@ Each of the target csv files have the same structure. The columns needed to recr
 6. **Ca**   Concentration of calcium in mg/L
 7. **NH4-N**   Concentration of ammonium in ug/L
 
+* **1_clean_data.R** includes the code for cleaning the raw data, creating **fig3_long.csv** in /output, which is ready for analysis
+
 # Methods
+
+**Currently working on methods section, so it is not ready yet!**
+1. Raw data 
+2. 
+Raw data (**/data/knb-lter-luq.20.4923064**) was cleaned (**1_clean_data.R**) by calculating the 9 week moving average for each sitethe 
+
+The cleaned data set fig3_long.csv moving average of 
+
+
+# Results
 
 ```{r}
 
 library(tidyverse)
-source("../R/moving-average.R")
 
-bq1 <- read_csv("../data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
-bq2 <- read_csv("../data/knb-lter-luq.20.4923064/QuebradaCuenca2-Bisley.csv")
-bq3 <- read_csv("../data/knb-lter-luq.20.4923064/QuebradaCuenca3-Bisley.csv")
-mpr <- read_csv("../data/knb-lter-luq.20.4923064/RioMameyesPuenteRoto.csv")
+fig3_long <- read_csv("../output/fig3_long.csv")
 
-# Calculate moving average for each site, populating result tables
-bq1_result <- moving_average(site = bq1)
-bq2_result <- moving_average(site = bq2)
-bq3_result <- moving_average(site = bq3)
-mpr_result <- moving_average(site = mpr)
-
-# Combine data frames
-fig3 <- bind_rows(bq1_result, bq2_result, bq3_result, mpr_result)
-
-# Pivot longer
-fig3_long <- fig3 |>
-  pivot_longer(
-    cols = c("NO3-N", "K", "Mg", "Ca", "NH4-N"),
-    names_to = "nutrients",
-    values_to = "concentration"
-  )
-
-# Plot figure 3
 ggplot(
   data = fig3_long,
   mapping = aes(x = window_start, y = concentration, linetype = Sample_ID)
@@ -74,14 +60,14 @@ ggplot(
     legend.title = element_blank(),
     legend.position = "inside",
     legend.justification = c("right", "top"),
+    legend.key.height = unit(.4, "cm"),
+    legend.key.width = unit(.5, "cm"),
     strip.placement = "outside"
   ) +
-  scale_x_date(name = "Years", sec.axis = dup_axis()) +
-  facet_grid(vars(nutrients), scales = "free_y", switch = "y")
+  labs(x = "Years", y = "") +
+  scale_x_date(sec.axis = dup_axis()) +
+  facet_grid(nutrients ~ ., scales = "free_y", switch = "y")
 ```
-
-# Results
-
 
 # References
 
