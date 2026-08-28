@@ -1,17 +1,27 @@
-# Hurricane effects on stream chemistry: Figure 3
+# Hurricane effects on stream chemistry: Figure 3 recreation
 Emalia Partlow (EDS 214)
 
 **Repository purpose:** Contains the raw data, cleaned data, functions, and scripts used to replicate Figure 3 from [Schaefer et al. (2000)](https://doi.org/10.1017/s0266467400001358)
 
 **Figure 3 overview:** Concentrations of 5 nutrients from 4 stream sites in Puerto Rico, before and after Hurricane Hugo in 1989
 
-![](Images/Schaefer_etal_2020_fig3.png)
+![](images/Schaefer_etal_2020_fig3.png)
 
 ## Data
 
-* data/ contains the raw data folder, **knb-lter-luq.20.4923064**, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)
-* **1_clean_data.R** includes the code for cleaning the raw data, creating **fig3_long.csv** in output/, which is ready for analysis
+* **data/** contains the raw data folder, **knb-lter-luq.20.4923064**, from [McDowell and International Institute Of Tropical Forestry (IITF) (2024)](https://doi.org/10.6073/PASTA/F31349BEBDC304F758718F4798D25458)
 
+* For more information on the contents of **data/knb-lter-luq.20.4923064**, see **data/README.md**
+
+* **1_clean_data.R** includes the code for cleaning the raw data, creating **fig3_long.csv** in **output/**, which is ready for analysis
+
+## Work flow
+
+1. Target raw data files from **data/knb-lter-luq.20.4923064** read into **1_clean_data.R** for cleaning
+2. Sourced the function calculating the 9 week moving average of nutrient concentrations from **R/moving-average.R** to populate the result tables for each site
+3. Combined the the 4 site's data frames containing the moving average results
+4. Pivoted longer and saved as **output/fig3_long.csv**
+5. Figure 3 developed with ggplot2 below in **Results**
 
 ## References
 

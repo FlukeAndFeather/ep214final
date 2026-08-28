@@ -97,40 +97,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data" class="level1">
 <h1>Data</h1>
 <ul>
-<li><p><strong>data/</strong> contains the raw data folder, <strong>knb-lter-luq.20.4923064</strong>, from McDowell and International Institute Of Tropical Forestry (IITF) (2024)</p></li>
-<li><p>The csv files used to recreate Figure 3 from <strong>data/knb-lter-luq.20.4923064</strong> include:</p></li>
-</ul>
-<ol type="1">
-<li>QuebradaCuenca1-Bisley.csv</li>
-<li>QuebradaCuenca2-Bisley.csv</li>
-<li>QuebradaCuenca3-Bisley.csv</li>
-<li>RioMameyesPuenteRoto.csv</li>
-</ol>
-<ul>
-<li>Each of the target csv files have the same structure. The columns needed to recreate figure 3 are:</li>
-</ul>
-<ol type="1">
-<li><strong>Sample_ID</strong> Site name (i.e., Q1, Q2, Q3, MPR)</li>
-<li><strong>Sample_Date</strong> Sampling began on 1986-05-20 and ended on 2020-12-29</li>
-<li><strong>NO3-N</strong> Concentration of nitrate in ug/L</li>
-<li><strong>K</strong> Concentration of potassium in mg/L</li>
-<li><strong>Mg</strong> Concentration of magnesium in mg/L</li>
-<li><strong>Ca</strong> Concentration of calcium in mg/L</li>
-<li><strong>NH4-N</strong> Concentration of ammonium in ug/L</li>
-</ol>
-<ul>
-<li><strong>1_clean_data.R</strong> includes the code for cleaning the raw data, creating <strong>fig3_long.csv</strong> in <strong>output/</strong>, which is ready for analysis</li>
+<li><p><strong>data/</strong> contains the raw data folder, <strong>knb-lter-luq.20.4923064</strong>, from <a href="https://doi.org/10.6073/PASTA/F31349BEBDC304F758718F4798D25458">McDowell and International Institute Of Tropical Forestry (IITF) (2024)</a></p></li>
+<li><p>For more information on the contents of <strong>data/knb-lter-luq.20.4923064</strong>, see <strong>data/README.md</strong></p></li>
+<li><p><strong>1_clean_data.R</strong> includes the code for cleaning the raw data, creating <strong>fig3_long.csv</strong> in <strong>output/</strong>, which is ready for analysis</p></li>
 </ul>
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
-<ol type="1">
-<li>Target raw data files from <strong>data/knb-lter-luq.20.4923064</strong> read into <strong>1_clean_data.R</strong> for cleaning</li>
-<li>Sourced the function calculating the 9 week moving average of nutrient concentrations from <strong>R/moving-average.R</strong> to populate the result tables for each site</li>
-<li>Combined the the 4 site’s data frames containing the moving average results</li>
-<li>Pivoted longer and saved as <strong>output/fig3_long.csv</strong></li>
-<li>Figure 3 developed with ggplot2 in <strong>figure3_final.R</strong> and below in <strong>Results</strong></li>
-</ol>
+<ul>
+<li><p>Figure 3 from <a href="https://doi.org/10.1017/s0266467400001358">Schaefer et al.&nbsp;(2000)</a> was recreated by plotting a 9 week moving average time series of nutrient concentrations for each target site</p></li>
+<li><p>For a more detailed work flow, see <strong>README.md</strong></p></li>
+</ul>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
